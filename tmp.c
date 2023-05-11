@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   tmp.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:00:30 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/05/01 16:44:09 by hkumbhan         ###   ########.fr       */
+/*   Updated: 2023/05/08 12:44:14 by hkumbhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*r_read(int fd, size_t size, char *static_buffer)
 
 	len = read(fd, read_buffer, BUFFER_SIZE);
 	if (len == -1)
-		return ;// error
+		return (NULL);
 	while(read_buffer != '\0')
 	{
 		if (read_buffer[i] != '\n')
