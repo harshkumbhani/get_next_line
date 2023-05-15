@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 17:37:11 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/05/15 16:55:10 by hkumbhan         ###   ########.fr       */
+/*   Created: 2023/05/15 16:01:14 by hkumbhan          #+#    #+#             */
+/*   Updated: 2023/05/15 16:02:00 by hkumbhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchr(char *str, int c)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (str == NULL)
 		return (NULL);
-	while (str[++i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] == c)
-			return (&str[i]);
+		{
+			str = &str[i];
+			return (str);
+		}
+		i++;
 	}
 	return (NULL);
 }
@@ -35,7 +39,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = -1;
 	j = 0;
-	if (s2 == NULL)
+	if (s1 == NULL && s2 == NULL)
 		return (NULL);
 	if (s1 == NULL)
 	{
@@ -52,7 +56,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j] != '\0')
 		result[i++] = s2[j++];
 	result[i] = '\0';
-	return (free(s1), result);
+	free(s1);
+	return (result);
 }
 
 size_t	ft_strlen(char *str)

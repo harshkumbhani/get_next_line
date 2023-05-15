@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/01 16:48:28 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/05/15 17:09:13 by hkumbhan         ###   ########.fr       */
+/*   Created: 2023/05/15 15:47:28 by hkumbhan          #+#    #+#             */
+/*   Updated: 2023/05/15 16:18:55 by hkumbhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = ALLOC_FAIL;
+	static char	*stash[256];
 	char		*res;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
-		return (ALLOC_FAIL);
-	stash = ft_read_file(fd, stash);
-	if (stash == ALLOC_FAIL)
-		return (free(stash), ALLOC_FAIL);
-	res = ft_get_line(stash);
-	if (res[0] == '\0' && !ft_strchr(stash, '\n'))
+	return (ALLOC_FAIL);
+	stash[fd] = ft_read_file(fd, stash[fd]);
+	if (stash[fd] == ALLOC_FAIL)
+		return (free(stash[fd]), ALLOC_FAIL);
+	res = ft_get_line(stash[fd]);
+	if (res[0] == '\0' && !ft_strchr(stash[fd], '\n'))
 	{
-		stash = ft_update_stash(stash);
-		return (free(res), ALLOC_FAIL);
+		free(res);
+		stash[fd] = ft_update_stash(stash[fd]);
+		return (ALLOC_FAIL);
 	}
-	stash = ft_update_stash(stash);
+	stash[fd] = ft_update_stash(stash[fd]);
 	return (res);
 }
 
@@ -45,11 +46,15 @@ char	*ft_read_file(int fd, char *stash)
 	{
 		ret = read(fd, buffer, BUFFER_SIZE);
 		if (ret < 0)
-			return (free(buffer), free(stash), ALLOC_FAIL);
+		{
+			free(buffer);
+			return (free(stash), ALLOC_FAIL);
+		}
 		buffer[ret] = '\0';
 		stash = ft_strjoin(stash, buffer);
 	}
-	return (free(buffer), stash);
+	free(buffer);
+	return (stash);
 }
 
 char	*ft_get_line(char *stash)
@@ -64,7 +69,7 @@ char	*ft_get_line(char *stash)
 		i++;
 	if (stash[i] == '\n')
 		i++;
-	res = (char *)malloc(sizeof(char) * (i + 1));
+	res = malloc(sizeof(char) * (i + 1));
 	if (!res)
 		return (ALLOC_FAIL);
 	i = 0;
@@ -100,33 +105,6 @@ char	*ft_update_stash(char *stash)
 	while (stash[i] != '\0')
 		res[j++] = stash[i++];
 	res[j] = '\0';
-	return (free(stash), res);
+	free(stash);
+	return (res);
 }
-
-//#include <stdio.h>
-
-//int main(void)
-//{
-//	int fd = open("text.txt", O_RDONLY);
-//	//char	*s;
-//	//char	*s1;
-//	//char	*s3;
-//	int i = 0;
-//	//s = get_next_line(fd);
-//	//printf("First call %s\n",s);
-//	//s1 = get_next_line(fd);
-//	//printf("Second call %s\n",s1);
-//	//s3 = get_next_line(fd);
-//	//printf("Third call %s\n",s3);
-	
-//	while (i <= 15)
-//	{
-//		printf("Call %d %s\n",i, get_next_line(fd));
-//		i++;
-//	}
-//	//free(s);
-//	//free(s1);
-//	close(fd);
-//	system("leaks a.out");
-//	return (0);
-//}
