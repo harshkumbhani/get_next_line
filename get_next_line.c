@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: harsh <harsh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:48:28 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/05/15 17:09:13 by hkumbhan         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:38:05 by harsh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ char	*ft_update_stash(char *stash)
 //	//s1 = get_next_line(fd);
 //	//printf("Second call %s\n",s1);
 //	//s3 = get_next_line(fd);
-//	//printf("Third call %s\n",s3);
-	
+//	//printf("Third call %s\n",s3);	
 //	while (i <= 15)
 //	{
 //		printf("Call %d %s\n",i, get_next_line(fd));

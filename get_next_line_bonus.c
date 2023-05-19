@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: harsh <harsh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:47:28 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/05/15 16:18:55 by hkumbhan         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:28:18 by harsh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,15 @@ char	*get_next_line(int fd)
 	char		*res;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
-	return (ALLOC_FAIL);
+		return (ALLOC_FAIL);
 	stash[fd] = ft_read_file(fd, stash[fd]);
 	if (stash[fd] == ALLOC_FAIL)
 		return (free(stash[fd]), ALLOC_FAIL);
 	res = ft_get_line(stash[fd]);
 	if (res[0] == '\0' && !ft_strchr(stash[fd], '\n'))
 	{
-		free(res);
 		stash[fd] = ft_update_stash(stash[fd]);
-		return (ALLOC_FAIL);
+		return (free(res), ALLOC_FAIL);
 	}
 	stash[fd] = ft_update_stash(stash[fd]);
 	return (res);

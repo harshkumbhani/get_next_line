@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: harsh <harsh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:00:47 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/05/15 16:00:49 by hkumbhan         ###   ########.fr       */
+/*   Updated: 2023/05/19 15:29:41 by harsh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -19,10 +23,6 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <string.h>
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 42
-#endif
 
 # define ALLOC_FAIL NULL
 
