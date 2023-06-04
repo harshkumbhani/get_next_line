@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: harsh <harsh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 15:47:28 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/05/19 15:28:18 by harsh            ###   ########.fr       */
+/*   Updated: 2023/06/03 13:24:45 by hkumbhan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*stash[256];
+	static char	*stash[FOPEN_MAX];
 	char		*res;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (ALLOC_FAIL);
 	stash[fd] = ft_read_file(fd, stash[fd]);
 	if (stash[fd] == ALLOC_FAIL)
-		return (free(stash[fd]), ALLOC_FAIL);
+		return (ALLOC_FAIL);
 	res = ft_get_line(stash[fd]);
-	if (res[0] == '\0' && !ft_strchr(stash[fd], '\n'))
+	if (res[0] == '\0')
 	{
 		stash[fd] = ft_update_stash(stash[fd]);
 		return (free(res), ALLOC_FAIL);
@@ -34,25 +34,18 @@ char	*get_next_line(int fd)
 
 char	*ft_read_file(int fd, char *stash)
 {
-	char	*buffer;
+	char	buffer[BUFFER_SIZE + 1];
 	int		ret;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (ALLOC_FAIL);
 	ret = 1;
-	while (ret > 0 && !ft_strchr(stash, '\n') && !ft_strchr(stash, '\0'))
+	while (ret > 0 && !ft_strchr(stash, '\n'))
 	{
 		ret = read(fd, buffer, BUFFER_SIZE);
 		if (ret < 0)
-		{
-			free(buffer);
 			return (free(stash), ALLOC_FAIL);
-		}
 		buffer[ret] = '\0';
 		stash = ft_strjoin(stash, buffer);
 	}
-	free(buffer);
 	return (stash);
 }
 
@@ -68,7 +61,7 @@ char	*ft_get_line(char *stash)
 		i++;
 	if (stash[i] == '\n')
 		i++;
-	res = malloc(sizeof(char) * (i + 1));
+	res = (char *)malloc(sizeof(char) * (i + 1));
 	if (!res)
 		return (ALLOC_FAIL);
 	i = 0;
@@ -104,6 +97,5 @@ char	*ft_update_stash(char *stash)
 	while (stash[i] != '\0')
 		res[j++] = stash[i++];
 	res[j] = '\0';
-	free(stash);
-	return (res);
+	return (free(stash), res);
 }
