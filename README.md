@@ -25,22 +25,6 @@ A "line" is defined as a succession of characters that end with `\n` (ascii code
 - Compile with get_next_line.c get_next_line_utils.c for mandatory part
 - Compile with get_next_line_bonus.c get_next_line_utils_bonus.c for bonus part
 
-## Run
-
-To run the program with a file as input:
-
-\```bash
-$> ./get_next_line file.txt
-\```
-
-For stdin input, run the program with no arguments:
-
-\```bash
-$> ./get_next_line
-\```
-
-Then type your input
-
 ### Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
