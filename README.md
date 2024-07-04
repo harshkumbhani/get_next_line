@@ -1,6 +1,6 @@
 # Get Next Line
 
-The Get Next Line project aims to code a function that behaves like the getline function in C standard library. 
+The Get Next Line project aims to code a function that behaves like the [``getline()``](https://man7.org/linux/man-pages/man3/getline.3.html#:~:text=getline()%20reads%20an%20entire,buffer%20for%20storing%20the%20line.) function in C standard library. 
 
 ## Description
 
