@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkumbhan <hkumbhan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: harsh <harsh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:48:28 by hkumbhan          #+#    #+#             */
-/*   Updated: 2023/06/03 21:05:43 by hkumbhan         ###   ########.fr       */
+/*   Updated: 2023/12/16 07:34:50 by harsh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*get_next_line(int fd)
 	res = ft_get_line(stash);
 	if (res[0] == '\0')
 	{
-		//stash = ft_update_stash(stash);
 		free(stash);
 		stash = NULL;
 		return (free(res), ALLOC_FAIL);
@@ -57,9 +56,9 @@ char	*ft_get_line(char *stash)
 	char	*res;
 
 	i = 0;
-	if (!stash)
+	if (stash == NULL)
 		return (ALLOC_FAIL);
-	while (stash[i] != '\n' && stash[i] != '\0')
+	while (stash[i] != '\0' && stash[i] != '\n')
 		i++;
 	if (stash[i] == '\n')
 		i++;
@@ -67,7 +66,7 @@ char	*ft_get_line(char *stash)
 	if (!res)
 		return (ALLOC_FAIL);
 	i = 0;
-	while (stash[i] != '\n' && stash[i] != '\0')
+	while (stash[i] != '\0' && stash[i] != '\n')
 	{
 		res[i] = stash[i];
 		i++;
@@ -101,3 +100,17 @@ char	*ft_update_stash(char *stash)
 	res[j] = '\0';
 	return (free(stash), res);
 }
+
+// int main()
+// {
+// 	int fd = open("test.txt", O_RDONLY);
+// 	char *str = get_next_line(fd);
+// 	printf("Line 1: %s\n", str);
+// 	free(str);
+// 	str = get_next_line(fd);
+// 	printf("Line 1: %s\n", str);
+// 	free(str);
+// 	str = get_next_line(fd);
+// 	printf("Line 1: %s\n", str);
+// 	return (0);
+// }
